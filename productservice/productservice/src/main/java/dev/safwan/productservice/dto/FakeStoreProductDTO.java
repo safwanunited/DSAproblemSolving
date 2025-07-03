@@ -1,4 +1,4 @@
-package dev.safwan.productservice.DTOs;
+package dev.safwan.productservice.dto;
 
 
 import lombok.AllArgsConstructor;

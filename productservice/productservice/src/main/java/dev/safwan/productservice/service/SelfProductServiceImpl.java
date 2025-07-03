@@ -1,8 +1,10 @@
-package dev.safwan.productservice.Service;
+package dev.safwan.productservice.service;
 
 
-import dev.safwan.productservice.DTOs.GenericProductDTO;
+import dev.safwan.productservice.dto.GenericProductDTO;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service("productService")
 public class SelfProductServiceImpl implements ProductService{
@@ -12,6 +14,16 @@ public class SelfProductServiceImpl implements ProductService{
 
     @Override
     public GenericProductDTO createProduct(GenericProductDTO product) {
+        return null;
+    }
+
+    @Override
+    public List<GenericProductDTO> getAllProducts() {
+        return List.of();
+    }
+
+    @Override
+    public GenericProductDTO deleteProduct(String id) {
         return null;
     }
 }
