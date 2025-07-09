@@ -1,4 +1,4 @@
-package dev.safwan.productservice.dto;
+package dev.safwan.productservice.thirdpartyclients.producservice.fakestore;
 
 
 import lombok.AllArgsConstructor;
