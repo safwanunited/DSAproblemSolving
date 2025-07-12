@@ -2,6 +2,7 @@ package dev.safwan.productservice.thirdpartyclients.producservice.fakestore;
 
 import dev.safwan.productservice.dto.GenericProductDTO;
 import dev.safwan.productservice.exceptions.NotFoundException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,14 @@ import java.util.List;
 public class FakeStoreProductServiceClient {
 
     private final RestTemplateBuilder restTemplateBuilder;
-    private String getSpecificProductUrl="https://fakestoreapi.com/products/{id}";
-    private String productRequestBaseUrl="https://fakestoreapi.com/products";
+
+    @Value("${fakestore.api.url}")
+    private String fakeStoreProductUrl;
+    @Value("${fakestore.api.path.product}")
+    private String fakeStoreProductApiPath;
+
+    private String getSpecificProductUrl;
+    private String productRequestBaseUrl;
     private GenericProductDTO convertToGenericProductDto(FakeStoreProductDTO fakeStoreProductDto){
         GenericProductDTO product=new GenericProductDTO();
         product.setId(fakeStoreProductDto.getId());
@@ -30,8 +37,11 @@ public class FakeStoreProductServiceClient {
         return product;
     }
 
-    public FakeStoreProductServiceClient(RestTemplateBuilder restTemplateBuilder) {
+    public FakeStoreProductServiceClient(RestTemplateBuilder restTemplateBuilder, @Value("${fakestore.api.url}")
+    String fakeStoreProductUrl, @Value("${fakestore.api.path.product}") String fakeStoreProductApiPath) {
         this.restTemplateBuilder = restTemplateBuilder;
+        this.getSpecificProductUrl=fakeStoreProductUrl+fakeStoreProductApiPath+"/{id}";
+        this.productRequestBaseUrl=fakeStoreProductUrl+fakeStoreProductApiPath;
     }
 
     public GenericProductDTO getProductById(String currId) throws NotFoundException {
