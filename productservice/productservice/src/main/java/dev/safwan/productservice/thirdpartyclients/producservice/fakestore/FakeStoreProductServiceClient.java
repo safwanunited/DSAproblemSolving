@@ -44,7 +44,7 @@ public class FakeStoreProductServiceClient {
         this.productRequestBaseUrl=fakeStoreProductUrl+fakeStoreProductApiPath;
     }
 
-    public GenericProductDTO getProductById(String currId) throws NotFoundException {
+    public GenericProductDTO getProductById(Integer currId) throws NotFoundException {
         RestTemplate restTemplate=restTemplateBuilder.build();
         ResponseEntity<FakeStoreProductDTO> response=restTemplate.getForEntity(getSpecificProductUrl, FakeStoreProductDTO.class,currId);
         FakeStoreProductDTO fakeStoreProductDto=response.getBody();
@@ -85,7 +85,7 @@ public class FakeStoreProductServiceClient {
         return answer;
     }
 
-    public GenericProductDTO deleteProduct(String id) {
+    public GenericProductDTO deleteProduct(Integer id) {
 
         RestTemplate restTemplate=restTemplateBuilder.build();
         RequestCallback requestCallback = restTemplate.acceptHeaderRequestCallback(FakeStoreProductDTO.class);

@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-@Primary
 @Service("fakeStoreProductService")
 public class FakeStoreProductService implements ProductService {
 
@@ -21,7 +21,7 @@ public class FakeStoreProductService implements ProductService {
 
 
     @Override
-    public GenericProductDTO getProductById(String currId) throws NotFoundException {
+    public GenericProductDTO getProductById(Integer currId) throws NotFoundException {
         return fakeStoreProductServiceClient.getProductById(currId);
     }
 
@@ -36,7 +36,7 @@ public class FakeStoreProductService implements ProductService {
     }
 
     @Override
-    public GenericProductDTO deleteProduct(String id) {
+    public GenericProductDTO deleteProduct(Integer id) {
         return fakeStoreProductServiceClient.deleteProduct(id);
     }
 }

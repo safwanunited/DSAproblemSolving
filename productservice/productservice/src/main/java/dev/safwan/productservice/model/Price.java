@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.awt.datatransfer.FlavorEvent;
+
 @Entity
 @Getter
 @Setter
@@ -13,5 +15,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Price extends BaseModel {
     String currency;
-    double price;
+    Float price;
 }
