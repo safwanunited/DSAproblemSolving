@@ -14,6 +14,10 @@ import java.awt.datatransfer.FlavorEvent;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Price extends BaseModel {
-    String currency;
-    Float price;
+    private double amount;
+    private String currency;
+
+    public Price(double v, String usd, Product product1) {
+        super();
+    }
 }

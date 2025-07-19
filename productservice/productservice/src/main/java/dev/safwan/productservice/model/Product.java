@@ -1,25 +1,32 @@
 package dev.safwan.productservice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
-public class Product extends BaseModel{
+@AllArgsConstructor
+public class Product extends BaseModel {
+
     private String title;
-    private String Description;
+
+    private String description;
+
     private String image;
-    @ManyToOne
+
+    @ManyToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "category")
     private Category category;
-    @OneToOne
-    private Price price;
 
-    @ManyToMany(mappedBy = "products")
-    private List<Order>orders=new ArrayList<>();
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
+//    @Fetch(FetchMode.JOIN)
+    private Price price;
+    private int inventoryCount;
 }

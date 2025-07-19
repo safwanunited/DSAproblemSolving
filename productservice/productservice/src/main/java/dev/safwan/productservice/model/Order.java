@@ -14,13 +14,10 @@ import java.util.List;
 @Getter
 @Setter
 public class Order extends BaseModel{
-
-    private String customer;
-
     @ManyToMany
     @JoinTable(name="order_product",
     joinColumns = @JoinColumn(name="order_id"),
     inverseJoinColumns = @JoinColumn(name="product_id"))
-    private List<Product> products=new ArrayList<>();
+    private List<Product> products;
 
 }

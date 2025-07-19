@@ -1,4 +1,7 @@
 package dev.safwan.productservice.repositories;
 
-public class PriceRepository {
+import dev.safwan.productservice.model.Price;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PriceRepository extends JpaRepository<Price,Integer> {
 }
