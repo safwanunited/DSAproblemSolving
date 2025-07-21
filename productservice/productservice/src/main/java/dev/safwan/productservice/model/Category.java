@@ -24,5 +24,8 @@ public class Category extends BaseModel {
     @Fetch(FetchMode.SELECT)
     private List<Product> products = new ArrayList<>();
 
-    // this is the same relation being mapped by category attribute in the other (Product) class
+    public Category(String name) {
+        this.name = name;
+    }
+// this is the same relation being mapped by category attribute in the other (Product) class
 }

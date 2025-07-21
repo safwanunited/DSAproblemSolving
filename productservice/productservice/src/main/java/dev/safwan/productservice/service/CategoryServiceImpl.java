@@ -1,6 +1,7 @@
 package dev.safwan.productservice.service;
 
 import dev.safwan.productservice.dto.CategoryRespDTO;
+import dev.safwan.productservice.dto.ProductsOnCategory;
 import dev.safwan.productservice.model.Category;
 import dev.safwan.productservice.model.Product;
 import dev.safwan.productservice.repositories.CategoryRepository;
@@ -32,9 +33,7 @@ public class CategoryServiceImpl  implements CategoryService{
     @Override
     public CategoryRespDTO getAllCategroy() {
         List<Category> categories = categoryRepository.findAll();
-        List<String> categoryNames = categories.stream()
-                .map(Category::getName)
-                .collect(Collectors.toList());
+       List<String>categoryNames=categories.stream().map(Category::getName).collect(Collectors.toList());
 
         CategoryRespDTO dto = new CategoryRespDTO();
         dto.setStatus("SUCCESS");
@@ -44,4 +43,8 @@ public class CategoryServiceImpl  implements CategoryService{
         return dto;
     }
 
+    @Override
+    public ProductsOnCategory getProductsOfCategory() {
+        return null;
+    }
 }

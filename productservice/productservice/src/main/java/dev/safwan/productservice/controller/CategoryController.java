@@ -31,4 +31,9 @@ public class CategoryController {
         return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
 
     }
+    @GetMapping("/{type}")
+    public ResponseEntity<?>getProductsOfCategory(@PathVariable String type){
+
+        return null;
+    }
 }

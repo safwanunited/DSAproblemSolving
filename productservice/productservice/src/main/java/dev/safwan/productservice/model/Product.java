@@ -29,4 +29,6 @@ public class Product extends BaseModel {
 //    @Fetch(FetchMode.JOIN)
     private Price price;
     private int inventoryCount;
+    private int inventoryCheck;
+
 }

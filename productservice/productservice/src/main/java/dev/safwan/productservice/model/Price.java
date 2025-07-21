@@ -17,7 +17,9 @@ public class Price extends BaseModel {
     private double amount;
     private String currency;
 
-    public Price(double v, String usd, Product product1) {
-        super();
+    public Price( String currency,double amount) {
+        this.currency = currency;
+        this.amount = amount;
+
     }
 }
