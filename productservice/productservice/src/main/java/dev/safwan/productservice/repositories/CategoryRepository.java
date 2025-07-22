@@ -9,4 +9,6 @@ public interface CategoryRepository extends JpaRepository<Category,Integer> {
 
     @Override
     Optional<Category> findById(Integer integer);
+    Optional<Category> findByName(String name);
+
 }

@@ -1,10 +1,8 @@
 package dev.safwan.productservice.service;
 
 import dev.safwan.productservice.dto.CategoryRespDTO;
-import dev.safwan.productservice.dto.ProductsOnCategory;
+import dev.safwan.productservice.dto.ProductsOfCategoryDTO;
 import dev.safwan.productservice.model.Category;
-
-import java.util.List;
 
 public interface CategoryService {
 
@@ -12,6 +10,6 @@ public interface CategoryService {
 
     CategoryRespDTO getAllCategroy();
 
-    ProductsOnCategory getProductsOfCategory();
+    ProductsOfCategoryDTO getProductsOfCategory(String categoryType);
 
 }

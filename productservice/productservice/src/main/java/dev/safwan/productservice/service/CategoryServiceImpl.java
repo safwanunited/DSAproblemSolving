@@ -1,21 +1,29 @@
 package dev.safwan.productservice.service;
 
 import dev.safwan.productservice.dto.CategoryRespDTO;
-import dev.safwan.productservice.dto.ProductsOnCategory;
+import dev.safwan.productservice.dto.ProductDTO;
+import dev.safwan.productservice.dto.ProductsOfCategoryDTO;
 import dev.safwan.productservice.model.Category;
 import dev.safwan.productservice.model.Product;
 import dev.safwan.productservice.repositories.CategoryRepository;
+import dev.safwan.productservice.repositories.ProductRepository;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
+@Primary
 @Service
 public class CategoryServiceImpl  implements CategoryService{
     private final CategoryRepository categoryRepository;
+    private final ProductRepository productRepository;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository,
+                               ProductRepository productRepository) {
         this.categoryRepository = categoryRepository;
+        this.productRepository = productRepository;
     }
 
     @Override
@@ -44,7 +52,34 @@ public class CategoryServiceImpl  implements CategoryService{
     }
 
     @Override
-    public ProductsOnCategory getProductsOfCategory() {
-        return null;
+    public ProductsOfCategoryDTO getProductsOfCategory(String categoryType) {
+        Optional<Category> categoryOpt = categoryRepository.findByName(categoryType);
+
+        if (categoryOpt.isEmpty()) {
+            System.out.println("Category not found");
+            return new ProductsOfCategoryDTO("Failure", "Category not found", null);
+        }
+
+        Category category = categoryOpt.get();
+        int categoryId = category.getId();
+        System.out.println("Category ID found: " + categoryId);
+
+        List<Product> productsOfCategory = productRepository.findAllByCategoryId(categoryId);
+
+        List<ProductDTO> dtos = productsOfCategory.stream()
+                .map(p -> new ProductDTO(
+                        p.getId(),
+                        p.getTitle(),
+                        p.getDescription(),
+                        p.getImage(),
+                        p.getCategory().getName()
+                ))
+                .collect(Collectors.toList());
+
+        if (!dtos.isEmpty()) {
+            System.out.println(dtos.get(0));
+        }
+        return new ProductsOfCategoryDTO("Success", "Products Found", dtos);
     }
+
 }

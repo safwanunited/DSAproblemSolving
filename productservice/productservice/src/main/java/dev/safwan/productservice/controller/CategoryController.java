@@ -2,6 +2,7 @@ package dev.safwan.productservice.controller;
 
 
 import dev.safwan.productservice.dto.CategoryRespDTO;
+import dev.safwan.productservice.dto.ProductsOfCategoryDTO;
 import dev.safwan.productservice.model.Category;
 import dev.safwan.productservice.service.CategoryService;
 import org.springframework.http.HttpStatus;
@@ -31,9 +32,9 @@ public class CategoryController {
         return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
 
     }
-    @GetMapping("/{type}")
+    @GetMapping("/by-name/{type}")
     public ResponseEntity<?>getProductsOfCategory(@PathVariable String type){
-
-        return null;
+            ProductsOfCategoryDTO result=categoryService.getProductsOfCategory(type);
+        return ResponseEntity.ok(result);
     }
 }

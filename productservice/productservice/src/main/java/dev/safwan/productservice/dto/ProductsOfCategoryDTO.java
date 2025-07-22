@@ -10,8 +10,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductsOnCategory {
+public class ProductsOfCategoryDTO {
     private String status;
     private String message;
-    private List<Product>products;
+    private List<ProductDTO>products;
 }

@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Primary
 @Service("productService")
 public class SelfProductServiceImpl implements ProductService{
 
