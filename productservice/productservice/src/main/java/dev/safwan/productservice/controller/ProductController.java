@@ -1,9 +1,12 @@
 package dev.safwan.productservice.controller;
 
 import dev.safwan.productservice.dto.GenericProductDTO;
+import dev.safwan.productservice.dto.ProductDTO;
+import dev.safwan.productservice.dto.ProductsOfCategoryDTO;
 import dev.safwan.productservice.exceptions.NotFoundException;
 import dev.safwan.productservice.service.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,5 +41,10 @@ public class ProductController {
     public GenericProductDTO deleteProduct(@PathVariable Integer id){
         return productService.deleteProduct(id);
     }
-    
+    @PutMapping
+    public ResponseEntity<?> updatePro(@RequestBody ProductDTO product)
+    {
+        ProductsOfCategoryDTO result2=productService.updateProduct(product);
+        return ResponseEntity.ok(result2);
+    }
 }

@@ -6,6 +6,7 @@ import dev.safwan.productservice.dto.ProductsOfCategoryDTO;
 import dev.safwan.productservice.model.Category;
 import dev.safwan.productservice.model.Product;
 import dev.safwan.productservice.repositories.CategoryRepository;
+import dev.safwan.productservice.repositories.PriceRepository;
 import dev.safwan.productservice.repositories.ProductRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -14,16 +15,18 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-@Primary
 @Service
 public class CategoryServiceImpl  implements CategoryService{
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
+    private final PriceRepository priceRepository;
 
     public CategoryServiceImpl(CategoryRepository categoryRepository,
-                               ProductRepository productRepository) {
+                               ProductRepository productRepository,
+                               PriceRepository priceRepository) {
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
+        this.priceRepository = priceRepository;
     }
 
     @Override

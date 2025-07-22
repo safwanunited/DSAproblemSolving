@@ -1,6 +1,8 @@
 package dev.safwan.productservice.service;
 
 import dev.safwan.productservice.dto.GenericProductDTO;
+import dev.safwan.productservice.dto.ProductDTO;
+import dev.safwan.productservice.dto.ProductsOfCategoryDTO;
 import dev.safwan.productservice.exceptions.NotFoundException;
 import dev.safwan.productservice.thirdpartyclients.producservice.fakestore.FakeStoreProductServiceClient;
 import org.springframework.context.annotation.Primary;
@@ -38,5 +40,10 @@ public class FakeStoreProductService implements ProductService {
     @Override
     public GenericProductDTO deleteProduct(Integer id) {
         return fakeStoreProductServiceClient.deleteProduct(id);
+    }
+
+    @Override
+    public ProductsOfCategoryDTO updateProduct(ProductDTO product) {
+        return null;
     }
 }

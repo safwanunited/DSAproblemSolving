@@ -22,6 +22,6 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
     @Query(value = CustomRepository.FIND_ALL_BY_TITLE, nativeQuery = true)
     List<Product> findAllByTitle(String naman);
 
-
     List<Product> findAllByCategoryIn(List<Category> categories);
+
 }

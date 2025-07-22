@@ -2,6 +2,7 @@ package dev.safwan.productservice.controller;
 
 
 import dev.safwan.productservice.dto.CategoryRespDTO;
+import dev.safwan.productservice.dto.ProductDTO;
 import dev.safwan.productservice.dto.ProductsOfCategoryDTO;
 import dev.safwan.productservice.model.Category;
 import dev.safwan.productservice.service.CategoryService;
@@ -37,4 +38,5 @@ public class CategoryController {
             ProductsOfCategoryDTO result=categoryService.getProductsOfCategory(type);
         return ResponseEntity.ok(result);
     }
+
 }

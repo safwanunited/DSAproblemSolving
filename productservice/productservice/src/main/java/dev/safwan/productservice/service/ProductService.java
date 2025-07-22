@@ -1,6 +1,8 @@
 package dev.safwan.productservice.service;
 
 import dev.safwan.productservice.dto.GenericProductDTO;
+import dev.safwan.productservice.dto.ProductDTO;
+import dev.safwan.productservice.dto.ProductsOfCategoryDTO;
 import dev.safwan.productservice.exceptions.NotFoundException;
 
 import java.util.List;
@@ -11,4 +13,5 @@ public interface ProductService {
         GenericProductDTO getProductById(Integer id) throws NotFoundException;
         List<GenericProductDTO> getAllProducts();
         GenericProductDTO deleteProduct(Integer id);
+        ProductsOfCategoryDTO updateProduct(ProductDTO product);
 }
