@@ -12,7 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,26 +24,25 @@ public class SearchService {
 
     public Page<Product> search(
             String query,
-            List<FilterDto>filters,
+            List<FilterDto> filters,
             SortingCriteria sortingCriteria,
             int pageNumber,
             int pageSize
-    ){
-        List<Product>products=productRepository.findByTitleContainingIgnoreCase(query);
-        for(FilterDto filterDto:filters){
-             products= FilterFactory.getFilterFromKey(
-                     filterDto.getKey()
-             ).apply(products,filterDto.getValues());
+    ) {
+        List<Product> products = productRepository.findByTitleContainingIgnoreCase(query);
+
+        for (FilterDto filterDto : filters) {
+            products = FilterFactory.getFilterFromKey(filterDto.getKey())
+                    .apply(products, filterDto.getValues());
         }
 
-        products= SorterFactory.getSorterByCriteria(sortingCriteria).sort(products);
+        products = SorterFactory.getSorterByCriteria(sortingCriteria).sort(products);
 
-        List<Product>productsOnPage=new ArrayList<>();
-        for(int i=pageSize*(pageNumber-1);i<=(pageSize*pageNumber)-1;i++){
-            productsOnPage.add(products.get(i));
-        }
+        int start = Math.min(pageSize * (pageNumber - 1), products.size());
+        int end = Math.min(start + pageSize, products.size());
+        List<Product> productsOnPage = products.subList(start, end);
 
-        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize); // 0-based
         return new PageImpl<>(productsOnPage, pageable, products.size());
     }
 }

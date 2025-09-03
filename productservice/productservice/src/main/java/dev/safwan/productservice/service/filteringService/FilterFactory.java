@@ -5,7 +5,7 @@ public class FilterFactory {
         return switch (key) {
             case "brand" -> new BrandFilter();
             case "ram" -> new RAMFilter();
-            default -> null;
+            default -> (products, values) -> products;
         };
     }
 }

@@ -11,7 +11,7 @@ public class SorterFactory {
             case POPULARITY -> null;
             case RATING_LOW_TO_HIGH -> null;
             case RATING_HIGH_TO_LOW -> null;
-            default -> null;
+            default -> products -> products;
         };
 
     }
