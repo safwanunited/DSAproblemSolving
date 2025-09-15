@@ -2,8 +2,10 @@ package dev.safwan.productservice.thirdpartyclients.producservice.fakestore;
 
 import dev.safwan.productservice.dto.GenericProductDTO;
 import dev.safwan.productservice.exceptions.NotFoundException;
+import dev.safwan.productservice.model.Product;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,11 +15,13 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class FakeStoreProductServiceClient {
 
     private final RestTemplateBuilder restTemplateBuilder;
+    private RedisTemplate<String, Object>redisTemplate;
 
     @Value("${fakestore.api.url}")
     private String fakeStoreProductUrl;
@@ -38,13 +42,25 @@ public class FakeStoreProductServiceClient {
     }
 
     public FakeStoreProductServiceClient(RestTemplateBuilder restTemplateBuilder, @Value("${fakestore.api.url}")
-    String fakeStoreProductUrl, @Value("${fakestore.api.path.product}") String fakeStoreProductApiPath) {
+    String fakeStoreProductUrl, @Value("${fakestore.api.path.product}") String fakeStoreProductApiPath,RedisTemplate redisTemplate) {
         this.restTemplateBuilder = restTemplateBuilder;
+        this.redisTemplate=redisTemplate;
         this.getSpecificProductUrl=fakeStoreProductUrl+fakeStoreProductApiPath+"/{id}";
         this.productRequestBaseUrl=fakeStoreProductUrl+fakeStoreProductApiPath;
     }
 
     public GenericProductDTO getProductById(Integer currId) throws NotFoundException {
+
+        Product product2= (Product) redisTemplate.opsForHash().get("PRODUCTS","PRODUCT_"+currId);
+        if(product2!=null) {
+            GenericProductDTO productDto = new GenericProductDTO();
+            productDto.setId(product2.getId());
+            productDto.setTitle(product2.getTitle());
+            productDto.setDescription(product2.getDescription());
+            productDto.setCategory(product2.getCategory().getName());
+            return productDto;
+        }
+
         RestTemplate restTemplate=restTemplateBuilder.build();
         ResponseEntity<FakeStoreProductDTO> response=restTemplate.getForEntity(getSpecificProductUrl, FakeStoreProductDTO.class,currId);
         FakeStoreProductDTO fakeStoreProductDto=response.getBody();
@@ -58,6 +74,9 @@ public class FakeStoreProductServiceClient {
         product.setTitle(fakeStoreProductDto.getTitle());
         product.setPrice(fakeStoreProductDto.getPrice());
         product.setCategory(fakeStoreProductDto.getCategory());
+
+        redisTemplate.opsForHash().put("PRODUCTS","PRODUCT_"+currId,product);
+
         return product;
     }
 
